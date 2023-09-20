@@ -38,7 +38,21 @@ exports.getAllTributes = async (req, res) => {
     });
   }
 };
-
+exports.getOneTribute = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const tributes = await User.findOne({ _id: id });
+    console.log(tributes);
+    res.status(200).json({
+      tributes,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: error.message,
+    });
+  }
+};
 exports.editTributes = async (req, res) => {
   try {
     const tribute = await User.findByIdAndUpdate(req.params.id, req.body, {
